@@ -1,0 +1,605 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+body {
+    font-family: 'Fredoka', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: linear-gradient(180deg, #ffd93d 0%, #ff9a9e 50%, #fecfef 100%);
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    position: relative;
+}
+
+#gameContainer {
+    width: 100%;
+    max-width: 428px;
+    min-height: 100vh;
+    margin: 0 auto;
+    background: linear-gradient(180deg, #fff5f5 0%, #fff 100%);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 헤더 */
+#header {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+    padding: env(safe-area-inset-top, 15px) 15px 15px;
+    position: relative;
+    z-index: 100;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.15);
+}
+
+#header h1 {
+    font-size: 1.3em;
+    color: white;
+    text-align: center;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#gameInfo {
+    display: flex;
+    justify-content: space-around;
+    gap: 8px;
+}
+
+#gameInfo > div {
+    background: rgba(255, 255, 255, 0.25);
+    padding: 6px 10px;
+    border-radius: 15px;
+    color: white;
+    font-size: 0.85em;
+    font-weight: 600;
+    backdrop-filter: blur(10px);
+    flex: 1;
+    text-align: center;
+}
+
+/* 게임 영역 */
+#gameArea {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* 주문 섹션 - 상단 가로 스크롤 */
+#orderSection {
+    background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%);
+    padding: 10px 0;
+    position: sticky;
+    top: 0;
+    z-index: 90;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+#orderList {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 5px 15px 10px;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    min-height: 130px;
+}
+
+#orderList::-webkit-scrollbar {
+    height: 4px;
+}
+
+#orderList::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.05);
+    border-radius: 2px;
+}
+
+#orderList::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.2);
+    border-radius: 2px;
+}
+
+.order {
+    min-width: 140px;
+    background: white;
+    border-radius: 15px;
+    padding: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    border: 2px solid #f0f0f0;
+    flex-shrink: 0;
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.order.urgent {
+    border-color: #ff4444;
+    background: linear-gradient(135deg, #fff5f5 0%, #ffeeee 100%);
+    animation: urgentBlink 1s infinite;
+}
+
+@keyframes urgentBlink {
+    0%, 100% { 
+        border-color: #ff4444;
+        box-shadow: 0 3px 15px rgba(255, 68, 68, 0.3);
+    }
+    50% { 
+        border-color: #ff6666;
+        box-shadow: 0 3px 20px rgba(255, 68, 68, 0.5);
+    }
+}
+
+.order-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+}
+
+.order-customer {
+    font-size: 24px;
+}
+
+.order-number {
+    font-weight: 600;
+    color: #333;
+    font-size: 0.85em;
+}
+
+.order-time {
+    background: #f0f0f0;
+    padding: 2px 6px;
+    border-radius: 8px;
+    font-size: 0.75em;
+    color: #666;
+}
+
+.order-name {
+    font-size: 0.9em;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 6px;
+}
+
+.order-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.order-item {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.7em;
+    font-weight: 500;
+}
+
+/* 조리 섹션 */
+#cookingSection {
+    flex: 1;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* 조리대 */
+#cookingStations {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.station {
+    background: white;
+    border-radius: 15px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s;
+    cursor: pointer;
+    position: relative;
+}
+
+.station.selected {
+    background: linear-gradient(135deg, #e6f7ff 0%, #d6f0ff 100%);
+    border: 2px solid #4299e1;
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(66, 153, 225, 0.3);
+}
+
+.pot {
+    width: 70px;
+    height: 70px;
+    background: radial-gradient(circle at 30% 30%, #f5f5f5, #e0e0e0);
+    border: 3px solid #999;
+    border-radius: 50%;
+    margin: 0 auto 8px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 
+        inset 0 3px 8px rgba(0, 0, 0, 0.2),
+        0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.water-level {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: linear-gradient(180deg, rgba(59, 130, 246, 0.6) 0%, rgba(30, 100, 220, 0.9) 100%);
+    transition: height 0.5s;
+}
+
+.water-level::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-radial-gradient(
+        circle at 50% 100%,
+        transparent 0,
+        transparent 5px,
+        rgba(255, 255, 255, 0.2) 5px,
+        rgba(255, 255, 255, 0.2) 10px
+    );
+    animation: bubbles 2s linear infinite;
+}
+
+@keyframes bubbles {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-10px); }
+}
+
+.noodles {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50%;
+    height: 15px;
+    background: #fbbf24;
+    border-radius: 3px;
+    display: none;
+}
+
+.toppings {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+}
+
+.cookingStatus {
+    font-size: 0.7em;
+    color: #666;
+    min-height: 20px;
+    margin-bottom: 4px;
+    font-weight: 600;
+    word-break: break-word;
+    line-height: 1.2;
+}
+
+.cookingProgress {
+    width: 100%;
+    height: 4px;
+    background: #f0f0f0;
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.progressBar {
+    height: 100%;
+    background: linear-gradient(90deg, #48bb78 0%, #38a169 100%);
+    width: 0%;
+    transition: width 0.3s;
+}
+
+/* 화구별 액션 버튼 */
+.stationActions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+}
+
+.station-btn {
+    padding: 6px;
+    background: #f0f0f0;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.cook-btn {
+    background: #fef3c7;
+}
+
+.cook-btn:active {
+    background: #fbbf24;
+    transform: scale(0.9);
+}
+
+.serve-btn {
+    background: #dbeafe;
+}
+
+.serve-btn:active {
+    background: #60a5fa;
+    transform: scale(0.9);
+}
+
+.discard-btn {
+    background: #fee2e2;
+}
+
+.discard-btn:active {
+    background: #f87171;
+    transform: scale(0.9);
+}
+
+/* 재료 버튼 */
+#ingredients {
+    background: white;
+    padding: 12px;
+    border-radius: 15px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.ingredientButtons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+
+.ingredient-btn {
+    padding: 12px 6px;
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 0.75em;
+    font-weight: 600;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+}
+
+.ingredient-btn:active {
+    transform: scale(0.95);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-color: transparent;
+}
+
+/* 오버레이 */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.overlay.hidden {
+    display: none;
+}
+
+.overlayContent {
+    background: white;
+    padding: 30px 20px;
+    border-radius: 25px;
+    text-align: center;
+    width: 100%;
+    max-width: 320px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+#overlayTitle {
+    font-size: 1.8em;
+    color: #333;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+#overlayMessage {
+    font-size: 1em;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+#finalScore {
+    font-size: 1.6em;
+    color: #667eea;
+    margin: 20px 0;
+    font-weight: 700;
+}
+
+.big-btn {
+    padding: 15px 35px;
+    font-size: 1.1em;
+    background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+    transition: all 0.3s;
+}
+
+.big-btn:active {
+    transform: scale(0.95);
+}
+
+/* 피드백 섹션 */
+#feedbackSection {
+    min-height: 50px;
+    padding: 8px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 손님 피드백 */
+.customer-feedback {
+    background: linear-gradient(135deg, #fff9e6 0%, #fff5f5 100%);
+    padding: 8px 12px;
+    border-radius: 15px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+    animation: slideIn 0.3s ease-out;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 2px solid #ffd93d;
+}
+
+.feedback-customer {
+    font-size: 24px;
+}
+
+.feedback-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.feedback-stars {
+    font-size: 14px;
+    color: #ffd93d;
+}
+
+.feedback-message {
+    font-size: 0.85em;
+    font-weight: 600;
+    color: #333;
+    line-height: 1.2;
+}
+
+.customer-feedback.fade-out {
+    animation: fadeOut 0.5s ease-out forwards;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+}
+
+/* 점수 팝업 */
+.completed-order {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
+    z-index: 999;
+    animation: popIn 0.5s;
+    min-width: 180px;
+    text-align: center;
+}
+
+@keyframes popIn {
+    0% { transform: translate(-50%, -50%) scale(0); }
+    50% { transform: translate(-50%, -50%) scale(1.1); }
+    100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+.score-popup {
+    font-size: 1.6em;
+    font-weight: 700;
+    color: #667eea;
+}
+
+/* 콤보 애니메이션 */
+#combo.combo-active {
+    animation: comboGlow 0.5s ease-in-out;
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+}
+
+@keyframes comboGlow {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* 반응형 조정 */
+@media screen and (max-width: 375px) {
+    #header h1 {
+        font-size: 1.2em;
+    }
+    
+    .ingredientButtons {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .pot {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    #gameContainer {
+        border-radius: 20px;
+        margin: 20px auto;
+        min-height: calc(100vh - 40px);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    }
+}

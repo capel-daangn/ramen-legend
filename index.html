@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>당근이의 라면가게</title>
+    <link rel="stylesheet" href="mobile-single.css">
+</head>
+<body>
+    <div id="gameContainer">
+        <div id="header">
+            <h1>🥕 당근이의 라면가게 🍜</h1>
+            <div id="gameInfo">
+                <div id="timer">⏱️ 남은 시간: <span id="timeLeft">120</span>초</div>
+                <div id="score">💯 점수: <span id="currentScore">0</span>점</div>
+                <div id="combo" style="display: none;">🔥 콤보: <span id="comboCount">0</span>x</div>
+            </div>
+        </div>
+
+        <div id="gameArea">
+            <!-- 주문 목록 영역 (상단 가로 스크롤) -->
+            <div id="orderSection">
+                <div id="orderList"></div>
+            </div>
+
+            <!-- 피드백 영역 -->
+            <div id="feedbackSection"></div>
+
+            <!-- 조리 영역 -->
+            <div id="cookingSection">
+                <div id="cookingStations">
+                    <div class="station" data-station="0">
+                        <div class="pot" id="pot0">
+                            <div class="water-level"></div>
+                            <div class="noodles"></div>
+                            <div class="toppings"></div>
+                        </div>
+                        <div class="cookingStatus">비어있음</div>
+                        <div class="cookingProgress">
+                            <div class="progressBar"></div>
+                        </div>
+                        <div class="stationActions">
+                            <button class="station-btn cook-btn" data-station="0">🔥</button>
+                            <button class="station-btn serve-btn" data-station="0">🍜</button>
+                            <button class="station-btn discard-btn" data-station="0">🗑️</button>
+                        </div>
+                    </div>
+                    <div class="station" data-station="1">
+                        <div class="pot" id="pot1">
+                            <div class="water-level"></div>
+                            <div class="noodles"></div>
+                            <div class="toppings"></div>
+                        </div>
+                        <div class="cookingStatus">비어있음</div>
+                        <div class="cookingProgress">
+                            <div class="progressBar"></div>
+                        </div>
+                        <div class="stationActions">
+                            <button class="station-btn cook-btn" data-station="1">🔥</button>
+                            <button class="station-btn serve-btn" data-station="1">🍜</button>
+                            <button class="station-btn discard-btn" data-station="1">🗑️</button>
+                        </div>
+                    </div>
+                    <div class="station" data-station="2">
+                        <div class="pot" id="pot2">
+                            <div class="water-level"></div>
+                            <div class="noodles"></div>
+                            <div class="toppings"></div>
+                        </div>
+                        <div class="cookingStatus">비어있음</div>
+                        <div class="cookingProgress">
+                            <div class="progressBar"></div>
+                        </div>
+                        <div class="stationActions">
+                            <button class="station-btn cook-btn" data-station="2">🔥</button>
+                            <button class="station-btn serve-btn" data-station="2">🍜</button>
+                            <button class="station-btn discard-btn" data-station="2">🗑️</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 재료 버튼들 -->
+                <div id="ingredients">
+                    <div class="ingredientButtons">
+                        <button class="ingredient-btn" data-ingredient="water">💧 물</button>
+                        <button class="ingredient-btn" data-ingredient="soup">🍲 스프</button>
+                        <button class="ingredient-btn" data-ingredient="noodles">🍜 면</button>
+                        <button class="ingredient-btn" data-ingredient="egg">🥚 계란</button>
+                        <button class="ingredient-btn" data-ingredient="dumpling">🥟 만두</button>
+                        <button class="ingredient-btn" data-ingredient="cheese">🧀 치즈</button>
+                        <button class="ingredient-btn" data-ingredient="greenOnion">🌿 파</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 게임 시작/종료 화면 -->
+        <div id="gameOverlay" class="overlay">
+            <div class="overlayContent">
+                <h2 id="overlayTitle">당근이의 라면가게</h2>
+                <p id="overlayMessage">맛있는 라면을 만들어 손님들을 만족시켜보세요!</p>
+                <div id="finalScore"></div>
+                <button id="startGame" class="big-btn">게임 시작</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
